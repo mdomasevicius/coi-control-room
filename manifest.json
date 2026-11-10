@@ -1,0 +1,11 @@
+{
+	"id": "ControlRoom",
+	"version": "0.0.1",
+	"display_name": "Control Room",
+	"description_short": "Serves a stats dashboard and extra web API routes from the game's web API server.",
+	"authors": [ "Mantas" ],
+	"primary_dlls": [ "ControlRoom.dll" ],
+	"non_locking_dll_load": true,
+	"can_add_to_saved_game": true,
+	"can_remove_from_saved_game": true
+}

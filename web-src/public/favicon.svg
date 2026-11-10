@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- Control Room favicon: the thumbnail's monitor (assets/thumbnail.svg) cut down to what reads at 16-32px: a riveted
+       steel monitor with three rising bars on a hazard-striped base, on a charcoal tile. -->
+  <defs>
+    <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c3cbd1" /><stop offset="1" stop-color="#6a747c" />
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b4a50" /><stop offset="1" stop-color="#0a1c20" />
+    </linearGradient>
+    <pattern id="hazard" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="8" height="8" fill="#f0c419" /><rect width="4" height="8" fill="#1c1a12" />
+    </pattern>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="#232323" />
+  <g stroke="#111" stroke-width="3" stroke-linejoin="round">
+    <rect x="7" y="48" width="50" height="9" rx="2" fill="url(#hazard)" />
+    <rect x="8" y="9" width="48" height="37" rx="6" fill="url(#steel)" />
+    <rect x="13" y="14" width="38" height="27" rx="3" fill="url(#screen)" />
+    <rect x="17" y="29" width="8" height="9" rx="1.5" fill="#3987e5" />
+    <rect x="28" y="24" width="8" height="14" rx="1.5" fill="#eda100" />
+    <rect x="39" y="18" width="8" height="20" rx="1.5" fill="#eb6834" />
+  </g>
+</svg>

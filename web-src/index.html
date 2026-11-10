@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Control Room</title>
+    <script>
+      // Set the theme before first paint (no flash). Mirrors src/logic/theme.svelte.ts: key, JSON value, auto = OS.
+      ;(function () {
+        var pref = 'auto'
+        try {
+          pref = JSON.parse(localStorage.getItem('control-room:theme')) || 'auto'
+        } catch (e) {}
+        var dark = pref === 'dark' || (pref !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

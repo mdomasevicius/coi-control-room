@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!--
+    Control Room mod thumbnail (512x512, the size the mod portal uses). Source for assets/thumbnail.png / .jpg,
+    rendered with headless Chrome (see assets/README.md). Sticker-style illustration on a grainy charcoal ground:
+    a riveted control-room monitor with rising bars and a trend line, a gauge, a smokestack and a hazard-striped
+    plinth (the dashboard's own hazard stripe).
+  -->
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Lilita+One&amp;display=block');
+      .title { font-family: 'Lilita One', 'Arial Black', sans-serif; font-size: 74px; letter-spacing: 0.5px; }
+    </style>
+
+    <radialGradient id="bg" cx="50%" cy="45%" r="75%">
+      <stop offset="0" stop-color="#353535" />
+      <stop offset="0.6" stop-color="#1f1f1f" />
+      <stop offset="1" stop-color="#0e0e0e" />
+    </radialGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="7" result="n" />
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0" />
+    </filter>
+    <filter id="blotches" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="3" result="n" />
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 -0.25" />
+    </filter>
+
+    <!-- title: cream to amber, thick ink outline -->
+    <linearGradient id="titleFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fffaf0" />
+      <stop offset="0.45" stop-color="#fde3a7" />
+      <stop offset="0.55" stop-color="#f6b443" />
+      <stop offset="1" stop-color="#e08a1c" />
+    </linearGradient>
+
+    <!-- sticker drop shadow -->
+    <filter id="drop" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#000" flood-opacity="0.6" />
+    </filter>
+
+    <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c3cbd1" />
+      <stop offset="0.5" stop-color="#8b959d" />
+      <stop offset="1" stop-color="#5a646c" />
+    </linearGradient>
+    <linearGradient id="steelSide" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6c767e" />
+      <stop offset="1" stop-color="#454d54" />
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#173c42" />
+      <stop offset="1" stop-color="#0a1c20" />
+    </linearGradient>
+    <radialGradient id="screenGlow" cx="50%" cy="40%" r="65%">
+      <stop offset="0" stop-color="#3fd9c0" stop-opacity="0.25" />
+      <stop offset="1" stop-color="#3fd9c0" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="barBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6fb2ff" /><stop offset="1" stop-color="#2a78d6" /></linearGradient>
+    <linearGradient id="barGreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5fe0a8" /><stop offset="1" stop-color="#1baf7a" /></linearGradient>
+    <linearGradient id="barAmber" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd25e" /><stop offset="1" stop-color="#eda100" /></linearGradient>
+    <linearGradient id="barOrange" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff9a68" /><stop offset="1" stop-color="#eb6834" /></linearGradient>
+    <linearGradient id="dial" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbf4e4" /><stop offset="1" stop-color="#d9cfb8" /></linearGradient>
+    <linearGradient id="brick" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b5523a" /><stop offset="1" stop-color="#7d3424" /></linearGradient>
+    <pattern id="hazard" width="34" height="34" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="34" height="34" fill="#f0c419" />
+      <rect width="17" height="34" fill="#1c1a12" />
+    </pattern>
+  </defs>
+
+  <!-- ground -->
+  <rect width="512" height="512" fill="url(#bg)" />
+  <rect width="512" height="512" filter="url(#blotches)" opacity="0.5" />
+  <rect width="512" height="512" filter="url(#grain)" opacity="0.08" />
+
+  <!-- title -->
+  <g transform="translate(256 118) rotate(-3)">
+    <text class="title" text-anchor="middle" y="10" fill="#000" opacity="0.55" transform="translate(5 9)">Control Room</text>
+    <text class="title" text-anchor="middle" fill="none" stroke="#14100a" stroke-width="18" stroke-linejoin="round">Control Room</text>
+    <text class="title" text-anchor="middle" fill="url(#titleFill)" stroke="#14100a" stroke-width="3">Control Room</text>
+    <!-- shine -->
+    <text class="title" text-anchor="middle" fill="none" stroke="#fff" stroke-opacity="0.35" stroke-width="1.5" transform="translate(-1.5 -2)">Control Room</text>
+  </g>
+
+  <!-- illustration, one sticker with a shadow -->
+  <g filter="url(#drop)" stroke="#161616" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+    <!-- smokestacks and smoke, behind the monitor -->
+    <g>
+      <circle cx="58" cy="178" r="16" fill="#8f969b" />
+      <circle cx="78" cy="152" r="22" fill="#a9b0b4" />
+      <circle cx="108" cy="134" r="16" fill="#c3c8cb" />
+      <path d="M62 404 L70 196 L104 196 L112 404 Z" fill="url(#brick)" />
+      <path d="M66 246 L108 246 M65 300 L109 300 M64 352 L110 352" stroke-width="5" />
+      <rect x="60" y="186" width="54" height="16" rx="3" fill="#5a646c" />
+      <path d="M408 404 L414 262 L440 262 L446 404 Z" fill="url(#brick)" />
+      <rect x="406" y="254" width="42" height="14" rx="3" fill="#5a646c" />
+      <circle cx="440" cy="236" r="12" fill="#a9b0b4" />
+      <circle cx="458" cy="216" r="9" fill="#c3c8cb" />
+    </g>
+
+    <!-- plinth with hazard stripe -->
+    <path d="M78 412 L434 412 L452 452 L60 452 Z" fill="url(#hazard)" />
+    <path d="M60 452 L452 452 L452 466 L60 466 Z" fill="#3a3a32" />
+
+    <!-- monitor stand -->
+    <path d="M226 382 L286 382 L298 414 L214 414 Z" fill="url(#steelSide)" />
+
+    <!-- monitor body -->
+    <rect x="128" y="190" width="272" height="198" rx="22" fill="url(#steel)" />
+    <!-- screen -->
+    <rect x="150" y="210" width="228" height="154" rx="10" fill="url(#screen)" />
+  </g>
+
+  <!-- screen contents (no sticker outline) -->
+  <g>
+    <rect x="153" y="213" width="222" height="148" rx="8" fill="url(#screenGlow)" />
+    <g stroke="#3fd9c0" stroke-opacity="0.16" stroke-width="1.5">
+      <path d="M164 248 H366 M164 282 H366 M164 316 H366" />
+    </g>
+    <!-- bars, rising -->
+    <g stroke="#06110f" stroke-width="3.5" stroke-linejoin="round">
+      <rect x="172" y="300" width="34" height="50" rx="4" fill="url(#barBlue)" />
+      <rect x="220" y="276" width="34" height="74" rx="4" fill="url(#barGreen)" />
+      <rect x="268" y="254" width="34" height="96" rx="4" fill="url(#barAmber)" />
+      <rect x="316" y="230" width="34" height="120" rx="4" fill="url(#barOrange)" />
+    </g>
+    <g fill="#000" opacity="0.22">
+      <rect x="196" y="302" width="8" height="46" rx="2" /><rect x="244" y="278" width="8" height="70" rx="2" />
+      <rect x="292" y="256" width="8" height="92" rx="2" /><rect x="340" y="232" width="8" height="116" rx="2" />
+    </g>
+    <g fill="#fff" opacity="0.3">
+      <rect x="176" y="304" width="5" height="40" rx="2" /><rect x="224" y="280" width="5" height="64" rx="2" />
+      <rect x="272" y="258" width="5" height="86" rx="2" /><rect x="320" y="234" width="5" height="110" rx="2" />
+    </g>
+    <!-- trend line with dots -->
+    <polyline points="180,286 232,262 284,244 332,218" fill="none" stroke="#06110f" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" />
+    <polyline points="180,286 232,262 284,244 332,218" fill="none" stroke="#fdf6e3" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+    <g fill="#fdf6e3" stroke="#06110f" stroke-width="3">
+      <circle cx="180" cy="286" r="6" /><circle cx="232" cy="262" r="6" /><circle cx="284" cy="244" r="6" /><circle cx="332" cy="218" r="7.5" />
+    </g>
+    <!-- glass shine -->
+    <path d="M160 222 Q 214 214 236 216 L 176 282 Q 158 262 160 222 Z" fill="#fff" opacity="0.12" />
+  </g>
+
+  <!-- bolts on the bezel -->
+  <g fill="#e2e7ea" stroke="#161616" stroke-width="3">
+    <circle cx="142" cy="204" r="5.5" /><circle cx="386" cy="204" r="5.5" /><circle cx="142" cy="374" r="5.5" /><circle cx="386" cy="374" r="5.5" />
+  </g>
+  <!-- bezel highlight -->
+  <path d="M146 196 H382" stroke="#fff" stroke-opacity="0.45" stroke-width="3" stroke-linecap="round" />
+
+  <!-- gauge, front right, overlapping the monitor -->
+  <g filter="url(#drop)">
+    <g transform="translate(398 344)" stroke="#161616" stroke-linejoin="round" stroke-linecap="round">
+      <circle r="58" fill="url(#steel)" stroke-width="6" />
+      <path d="M -46 -22 A 51 51 0 0 1 22 -46" fill="none" stroke="#fff" stroke-opacity="0.55" stroke-width="4" />
+      <circle r="44" fill="url(#dial)" stroke-width="4" />
+      <!-- scale: green, amber, red arc -->
+      <path d="M -34 14 A 36 36 0 0 1 -26 -24" fill="none" stroke="#1baf7a" stroke-width="7" stroke-linecap="butt" />
+      <path d="M -26 -24 A 36 36 0 0 1 22 -28" fill="none" stroke="#eda100" stroke-width="7" stroke-linecap="butt" />
+      <path d="M 22 -28 A 36 36 0 0 1 34 14" fill="none" stroke="#d03b3b" stroke-width="7" stroke-linecap="butt" />
+      <!-- needle -->
+      <path d="M 0 0 L 22 -26" stroke="#161616" stroke-width="6" />
+      <path d="M 0 0 L 22 -26" stroke="#d03b3b" stroke-width="3" />
+      <circle r="8" fill="#3a3a3a" stroke-width="3" />
+      <circle r="3" cx="-2" cy="-2" fill="#bfbfbf" stroke="none" />
+    </g>
+  </g>
+</svg>

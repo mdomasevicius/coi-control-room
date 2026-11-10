@@ -1,0 +1,67 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<!--
+		Linux-friendly build of a Captain of Industry mod.
+		The game runs under Proton, so the Mods folder lives inside the Proton prefix.
+		Override any path with an environment variable or -p:NAME=value.
+	-->
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net48</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Nullable>disable</Nullable>
+		<AssemblyName>ControlRoom</AssemblyName>
+		<RootNamespace>ControlRoom</RootNamespace>
+		<DebugType>portable</DebugType>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<!-- The dashboard's sources and node_modules are not part of the .NET project. -->
+		<DefaultItemExcludes>$(DefaultItemExcludes);web-src/**;dist/**</DefaultItemExcludes>
+
+		<!-- Compile against the game's own runtime DLLs instead of .NET Framework reference packs. -->
+		<DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+		<NoStdLib>true</NoStdLib>
+		<NoCompilerStandardLib>true</NoCompilerStandardLib>
+
+		<COI_ROOT Condition="'$(COI_ROOT)' == ''">$(HOME)/.local/share/Steam/steamapps/common/Captain of Industry</COI_ROOT>
+		<COI_MODS Condition="'$(COI_MODS)' == ''">$(HOME)/.local/share/Steam/steamapps/compatdata/1594320/pfx/drive_c/users/steamuser/AppData/Roaming/Captain of Industry/Mods</COI_MODS>
+		<CoiManaged>$(COI_ROOT)/Captain of Industry_Data/Managed</CoiManaged>
+
+		<!-- Copy the built mod into COI_MODS after every build. Turn off with -p:DeployToModsFolder=false. -->
+		<DeployToModsFolder Condition="'$(DeployToModsFolder)' == ''">true</DeployToModsFolder>
+
+		<!-- The assembly version follows manifest.json ("1.2.3a" is not a valid assembly version, so the letter is dropped). -->
+		<ManifestVersion>$([System.Text.RegularExpressions.Regex]::Match($([System.IO.File]::ReadAllText('$(MSBuildProjectDirectory)/manifest.json')), '"version"\s*:\s*"([^"]+)"').Groups[1].Value)</ManifestVersion>
+		<Version>$([System.Text.RegularExpressions.Regex]::Match('$(ManifestVersion)', '^\d+\.\d+(\.\d+)?').Value)</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Reference Include="mscorlib" HintPath="$(CoiManaged)/mscorlib.dll" Private="false" />
+		<Reference Include="netstandard" HintPath="$(CoiManaged)/netstandard.dll" Private="false" />
+		<Reference Include="System" HintPath="$(CoiManaged)/System.dll" Private="false" />
+		<Reference Include="System.Core" HintPath="$(CoiManaged)/System.Core.dll" Private="false" />
+		<Reference Include="Mafi" HintPath="$(CoiManaged)/Mafi.dll" Private="false" />
+		<Reference Include="Mafi.Core" HintPath="$(CoiManaged)/Mafi.Core.dll" Private="false" />
+		<Reference Include="Mafi.Unity" HintPath="$(CoiManaged)/Mafi.Unity.dll" Private="false" />
+	</ItemGroup>
+
+	<!--
+		web/ is the web-src/ Svelte app built by `make web` (vite build with base /control-room/). Everything in it is
+		embedded in the DLL and served by WebRoutes.cs as "web/<path>".
+	-->
+	<ItemGroup>
+		<EmbeddedResource Include="web/**/*" LogicalName="web/%(RecursiveDir)%(Filename)%(Extension)" />
+		<None Include="manifest.json" />
+	</ItemGroup>
+
+	<Target Name="CheckGamePath" BeforeTargets="ResolveAssemblyReferences">
+		<Error Condition="!Exists('$(CoiManaged)/Mafi.Core.dll')" Text="Game DLLs not found in '$(CoiManaged)'. Set COI_ROOT to the game folder." />
+		<Error Condition="!Exists('$(MSBuildProjectDirectory)/web/index.html')" Text="web/index.html is missing. Build the dashboard first: make web (or make install)." />
+	</Target>
+
+	<Target Name="DeployToModsFolder" AfterTargets="Build" Condition="'$(DeployToModsFolder)' == 'true'">
+		<PropertyGroup>
+			<ModDir>$(COI_MODS)/$(AssemblyName)</ModDir>
+		</PropertyGroup>
+		<Copy SourceFiles="manifest.json;$(TargetPath);$(TargetDir)$(AssemblyName).pdb" DestinationFolder="$(ModDir)" SkipUnchangedFiles="true" />
+		<Message Importance="high" Text="Deployed $(AssemblyName) $(ManifestVersion) to $(ModDir)" />
+	</Target>
+</Project>
