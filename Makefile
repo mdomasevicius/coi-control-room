@@ -15,7 +15,7 @@ DOTNET    := dotnet build $(MOD).csproj -c $(CONFIG) -nologo -v:minimal \
              "-p:COI_ROOT=$(COI_ROOT)" "-p:COI_MODS=$(COI_MODS)"
 
 .DEFAULT_GOAL := help
-.PHONY: help deps web dev check build install deploy debug uninstall clean dist routes hello unity power population open log logs
+.PHONY: help deps web dev check build install deploy debug uninstall clean dist release routes hello unity power population open log logs
 
 help: ## Show this list
 	@grep -hE '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  \033[1m%-10s\033[0m %s\n", $$1, $$2}'
@@ -71,6 +71,9 @@ dist: build ## Make dist/ControlRoom_<version>.zip for sharing (mod folder as th
 	cp manifest.json "bin/$(CONFIG)/$(MOD).dll" "dist/$(MOD)/"
 	cd dist && bsdtar -a -cf "$(MOD)_$(VERSION).zip" "$(MOD)"
 	@echo "dist/$(MOD)_$(VERSION).zip"
+
+release: ## Publish a GitHub release of the newest tag on main with its zip (DRY=1: build and show only)
+	scripts/release.sh $(if $(DRY),--dry-run)
 
 routes: ## List the game's web API routes (game running, web_api_start)
 	@curl -sf "$(API)/routes" || echo "Web API not reachable at $(API). Run web_api_start in the game console."

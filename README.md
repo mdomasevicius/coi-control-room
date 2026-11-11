@@ -126,3 +126,12 @@ reinstalling the mod; build the mod to ship.
 [MIT](LICENSE), for the original code and art in this repository only. Captain of Industry, its DLLs, code, assets
 and names belong to MaFi Games and are not covered; the mod builds against the game's DLLs from your own install and
 ships none of them. Captain of Industry® is a trademark of MaFi Games; this mod is not made or endorsed by MaFi Games.
+
+## Release
+
+1. Set `"version"` in `manifest.json` (and the game versions, if they changed), commit, push.
+2. Tag that commit with the same version: `git tag 1.0.1`.
+3. `make release DRY=1` builds the zip from the tag and shows the release notes; `make release` pushes the tag and
+   publishes the GitHub release with `ControlRoom_<version>.zip` attached. It needs the game installed (the build
+   references its DLLs) and the GitHub CLI logged in (`gh auth login`).
+4. Upload the same zip to the mod portal by hand.
